@@ -1,0 +1,54 @@
+# ---------------------
+# Modern CLI replacements
+# ---------------------
+alias ls="eza --icons --group-directories-first"
+alias ll="eza --icons --group-directories-first -la"
+alias lt="eza --icons --tree --level=2"
+alias cat="bat --style=auto"
+alias grep="rg"
+alias find="fd"
+alias dig="doggo"
+alias diff="delta"
+
+# Git shortcuts
+alias gs="git status"
+alias gd="git diff"
+alias ga="git add"
+alias gc="git commit"
+alias gp="git push"
+alias gl="git log --oneline --graph --decorate -20"
+alias gco="git checkout"
+alias gb="git branch"
+
+# Security
+alias secrets="gitleaks git --no-banner -v"
+alias scan="semgrep scan --config auto"
+alias vulns="trivy fs --scanners vuln,secret,misconfig ."
+
+# Utility
+alias ports="lsof -iTCP -sTCP:LISTEN -n -P"
+alias flushdns="sudo dscacheutil -flushcache; sudo killall -HUP mDNSResponder"
+alias ip="curl -s https://ifconfig.me"
+alias localip="ipconfig getifaddr en0"
+alias md="glow"
+alias weather="curl -s wttr.in/?format=3"
+
+# fzf + fd integration (use fd for file finding, respect .gitignore)
+export FZF_DEFAULT_COMMAND="fd --type f --hidden --follow --exclude .git"
+export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
+export FZF_ALT_C_COMMAND="fd --type d --hidden --follow --exclude .git"
+
+# Catppuccin Mocha colors for fzf
+export FZF_DEFAULT_OPTS=" \
+--color=bg+:#313244,bg:#1e1e2e,spinner:#f5e0dc,hl:#f38ba8 \
+--color=fg:#cdd6f4,header:#f38ba8,info:#cba6f7,pointer:#f5e0dc \
+--color=marker:#b4befe,fg+:#cdd6f4,prompt:#cba6f7,hl+:#f38ba8 \
+--color=selected-bg:#45475a \
+--multi"
+
+# ---------------------
+# Tool initialization
+# ---------------------
+eval "$(starship init zsh)"
+eval "$(zoxide init zsh)"
+source <(fzf --zsh)

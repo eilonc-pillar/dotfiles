@@ -1,0 +1,21 @@
+# Git delta configuration (reference file)
+# These settings are applied via `git config --global` by install.sh
+# rather than being included directly — this preserves existing .gitconfig entries.
+
+[core]
+	pager = delta
+
+[interactive]
+	diffFilter = delta --color-only
+
+[delta]
+	navigate = true
+	side-by-side = true
+	line-numbers = true
+	syntax-theme = Catppuccin Mocha
+
+[merge]
+	conflictstyle = diff3
+
+[diff]
+	colorMoved = default

@@ -1,0 +1,16 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+if ! command -v gitleaks &>/dev/null; then
+  echo "gitleaks not found, skipping secret scan"
+  exit 0
+fi
+
+echo "Running gitleaks pre-push scan..."
+if ! gitleaks git --staged --no-banner -v 2>&1; then
+  echo ""
+  echo "BLOCKED: gitleaks found potential secrets."
+  echo "Review the findings above. If they are false positives,"
+  echo "add them to a .gitleaksignore file in your repo root."
+  exit 1
+fi
