@@ -181,6 +181,34 @@ git config --global core.hooksPath "$DOTFILES_DIR/hooks"
 chmod +x "$DOTFILES_DIR/hooks/pre-push"
 ok "Git hooks configured (gitleaks pre-push)"
 
+# ── Step 12: Claude Code config (optional) ───────────────────────
+CLAUDE_CONFIG_REPO="https://github.com/trailofbits/claude-code-config.git"
+
+if command -v claude &>/dev/null; then
+  echo ""
+  echo -e "${BLUE}[optional]${NC} Claude Code detected."
+  echo "  Install opinionated Claude Code config? (settings, CLAUDE.md, MCP servers, commands)"
+  echo "  Source: $CLAUDE_CONFIG_REPO"
+  echo ""
+  read -rp "  Install Claude Code config? [y/N] " answer
+  if [[ "${answer,,}" == "y" ]]; then
+    info "To install, run inside Claude Code:"
+    echo ""
+    echo "    /trailofbits:config"
+    echo ""
+    echo "  Or clone and review manually:"
+    echo "    git clone $CLAUDE_CONFIG_REPO ~/Documents/GitHub/claude-code-config"
+    echo ""
+    skipped+=("claude-code-config (manual)")
+  else
+    warn "Claude Code config (declined)"
+    skipped+=("claude-code-config")
+  fi
+else
+  info "Claude Code not found — skipping config suggestion"
+  info "Install: https://docs.anthropic.com/en/docs/claude-code"
+fi
+
 # ── Summary ───────────────────────────────────────────────────────
 echo ""
 echo -e "${GREEN}══════════════════════════════════════${NC}"
