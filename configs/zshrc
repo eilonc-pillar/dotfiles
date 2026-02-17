@@ -1,4 +1,19 @@
 # ---------------------
+# History
+# ---------------------
+HISTFILE="$HOME/.zsh_history"
+HISTSIZE=50000
+SAVEHIST=50000
+
+setopt SHARE_HISTORY          # sync history across all sessions in real time
+setopt HIST_IGNORE_ALL_DUPS   # remove older duplicate when new one is added
+setopt HIST_SAVE_NO_DUPS      # don't write duplicates to the file
+setopt HIST_FIND_NO_DUPS      # skip duplicates when searching with Ctrl+R
+setopt HIST_REDUCE_BLANKS     # trim extra whitespace before saving
+setopt INC_APPEND_HISTORY     # write each command immediately, don't wait for exit
+setopt EXTENDED_HISTORY        # save timestamp and duration for each command
+
+# ---------------------
 # Modern CLI replacements
 # ---------------------
 alias ls="eza --icons --group-directories-first"
